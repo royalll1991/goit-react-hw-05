@@ -1,0 +1,11 @@
+.box{background-color: blue;
+height: 60px;
+padding-top: 15px;}
+
+.search{height: 30px;
+width: 300px;
+margin-right: 20px;}
+
+.button{height: 30px;
+background-color:rgb(8, 191, 242);
+color: aliceblue;}
