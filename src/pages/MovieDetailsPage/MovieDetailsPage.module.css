@@ -1,0 +1,9 @@
+.box{display: flex;}
+
+.boxList{text-align: left;
+}
+
+.list{list-style: none;}
+
+.button{margin-top: 20px;
+margin-bottom: 20px;}
