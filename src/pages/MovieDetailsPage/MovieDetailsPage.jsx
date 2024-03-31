@@ -11,10 +11,12 @@ function MovieDetailsPage () {
  const [error, setError] = useState (false);
  
  const location = useLocation();
-  const backLinkRef = useRef(location.state);
+    const backLinkRef = useRef(location.state ?? '/');
 
 
+console.log(location)
  useEffect(() => {
+        
         async function getCard () {
           try { const data = await getMovieById(movieId);
       setCard(data);
@@ -24,10 +26,10 @@ function MovieDetailsPage () {
               
           }
           
-} getCard(); }, [movieId]);
+} getCard(); }, [movieId,  location.pathname]);
 
-
-    return( <>   <Link to = {backLinkRef.current}> <button className={css.button}> Go back</button></Link>
+console.log(backLinkRef)
+    return( <>   <Link to={backLinkRef.current}><button className={css.button}>Go back</button></Link>
         {error ? <p>Yuo have a problem, reboot page</p>:<div className={css.box}>
             <img src={`https://image.tmdb.org/t/p/w500/${card.poster_path}`} alt={card.original_title} />
             <div>
