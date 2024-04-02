@@ -10,9 +10,8 @@ function MovieDetailsPage () {
     const [card, setCard] = useState([]);
  const [error, setError] = useState (false);
  
- const location = useLocation();
- 
- const backLinkRef = useRef(location.state?.from ?? '/');
+  const location = useLocation();
+  const backLinkRef = useRef(location.state?.from ?? '/');
 
  useEffect(() => {
     
@@ -27,6 +26,9 @@ function MovieDetailsPage () {
           }
           
 } getCard(); }, [movieId]);
+
+
+
 
 console.log(backLinkRef)
     return( <>   <Link to={backLinkRef.current}><button className={css.button}>Go back</button></Link>

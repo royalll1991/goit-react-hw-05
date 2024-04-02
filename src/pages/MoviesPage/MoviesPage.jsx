@@ -1,29 +1,36 @@
 import css from './MoviePage.module.css';
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { searchMovies } from '../../serch-movies';
 import MoviesList from '../../components/MovieList/MovieList';
 import { ThreeDots } from 'react-loader-spinner'
+import { useSearchParams } from 'react-router-dom';
 
 
 
 function MoviePage (){
-    const [query, setQuery] = useState('');
+    
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [params, setParams] = useSearchParams();
+
+    const query = params.get('query') ?? '';
+
 
     const notify = () => toast('no movies to find, put text');
 
     const handleChange = (event) => {
-        setQuery(event.target.value);
+        setParams({ query: event.target.value}); 
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!query) {
+        if (query==='') {
             notify();
-            return;
+            
+    
+    
         }
         
        fetchMovies(query);
@@ -49,6 +56,7 @@ function MoviePage (){
                     try {if (!query) {
                         return;
                     }
+                    
                     setIsLoading(true);
                         const data = await searchMovies(query);
                         setMovies(data.results);
@@ -58,8 +66,13 @@ function MoviePage (){
                         setIsLoading(false);
                     }
                 };
-      
 
+                useEffect(() => {
+                    if (query) {
+                        fetchMovies(query);
+                    }
+                }, []);
+ 
 
     return(<div><form onSubmit={handleSubmit}>
         <input className = {css.search}
